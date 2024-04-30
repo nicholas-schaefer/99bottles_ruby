@@ -1,7 +1,10 @@
-gem 'minitest', '~> 5.4'
+require 'bundler/setup'
 require 'minitest/autorun'
+require 'minitest/reporters'
 require 'minitest/pride'
 require_relative '../lib/bottles'
+
+Minitest::Reporters.use!
 
 class BottlesTest < Minitest::Test
   def test_the_first_verse

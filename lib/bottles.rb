@@ -3,7 +3,7 @@
 require 'bundler/setup'
 
 class Bottles
-  attr_accessor :verse_int, :verse_array
+  attr_accessor :verse_int, :verse_array, :quantity, :containers_of_drink, :containers_location, :action_1, :action_2
 
   def initialize
     self.verse_array = []
@@ -12,10 +12,12 @@ class Bottles
   def verse(int)
     self.verse_array.clear
     self.verse_int = int
+    set_lyrics
     verse_array << "#{quantity.capitalize} #{containers_of_drink} #{containers_location},"
     verse_array[0] += " #{quantity} #{containers_of_drink}."
     verse_array << "#{action_1.capitalize} #{action_2},"
     decrement_verse_int
+    set_lyrics
     verse_array[1] += " #{quantity} #{containers_of_drink} #{containers_location}."
     verse_array.join("\n") + "\n"
   end
@@ -47,57 +49,81 @@ class Bottles
     self.verse_int = 99 if self.verse_int < 0
   end
 
-  def quantity
+  def set_lyrics
     case verse_int
     when 2..100
-    "#{verse_int}"
+      self.quantity = "#{verse_int}"
+      self.containers_of_drink = "bottles of beer"
+      self.containers_location = "on the wall"
+      self.action_1 = "take one down"
+      self.action_2 = "and pass it around"
     when 1
-    "#{verse_int}"
+      self.quantity = "#{verse_int}"
+      self.containers_of_drink = "bottle of beer"
+      self.containers_location = "on the wall"
+      self.action_1 = "take it down"
+      self.action_2 = "and pass it around"
     when 0
-    "no more"
+      self.quantity = "no more"
+      self.containers_of_drink = "bottles of beer"
+      self.containers_location = "on the wall"
+      self.action_1 = "go to the store"
+      self.action_2 = "and buy some more"
     else raise ArgumentError
     end
   end
 
-  def containers_of_drink
-    case verse_int
-    when 2..100
-    "bottles of beer"
-    when 1
-    "bottle of beer"
-    when 0
-    "bottles of beer"
-    else raise ArgumentError
-    end
-  end
+  # def quantity
+  #   case verse_int
+  #   when 2..100
+  #   "#{verse_int}"
+  #   when 1
+  #   "#{verse_int}"
+  #   when 0
+  #   "no more"
+  #   else raise ArgumentError
+  #   end
+  # end
 
-  def containers_location
-    "on the wall"
-  end
+  # def containers_of_drink
+  #   case verse_int
+  #   when 2..100
+  #   "bottles of beer"
+  #   when 1
+  #   "bottle of beer"
+  #   when 0
+  #   "bottles of beer"
+  #   else raise ArgumentError
+  #   end
+  # end
 
-  def action_1
-    case verse_int
-    when 2..100
-    "take one down"
-    when 1
-    "take it down"
-    when 0
-    "go to the store"
-    else raise ArgumentError
-    end
-  end
+  # def containers_location
+  #   "on the wall"
+  # end
 
-  def action_2
-    case verse_int
-    when 2..100
-    "and pass it around"
-    when 1
-    "and pass it around"
-    when 0
-    "and buy some more"
-    else raise ArgumentError
-    end
-  end
+  # def action_1
+  #   case verse_int
+  #   when 2..100
+  #   "take one down"
+  #   when 1
+  #   "take it down"
+  #   when 0
+  #   "go to the store"
+  #   else raise ArgumentError
+  #   end
+  # end
+
+#   def action_2
+#     case verse_int
+#     when 2..100
+#     "and pass it around"
+#     when 1
+#     "and pass it around"
+#     when 0
+#     "and buy some more"
+#     else raise ArgumentError
+#     end
+#   end
 end
 
 # bottle_instance = Bottles.new

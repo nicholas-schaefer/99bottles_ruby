@@ -56,6 +56,11 @@ class BottlesTest < Minitest::Test
     assert_equal expected, Bottles.new.verse(0)
   end
 
+  def test_verse_outside_limits
+    assert_raises(ArgumentError){ Bottles.new.verse(-1) }
+    assert_raises(ArgumentError){ Bottles.new.verse(100) }
+  end
+
   def test_a_couple_verses
     # skip
     expected =

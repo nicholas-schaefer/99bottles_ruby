@@ -48,7 +48,7 @@ class Bottles
 
   def set_lyrics
     case verse_int
-    when 2..100 then set_verses2upto100
+    when 2..99 then set_verses_default
     when 1 then set_verse1
     when 0 then set_verse0
     else raise ArgumentError
@@ -71,7 +71,7 @@ class Bottles
     self.action2 = 'and pass it around'
   end
 
-  def set_verses2upto100
+  def set_verses_default
     self.quantity = verse_int.to_s
     self.containers_of_drink = 'bottles of beer'
     self.containers_location = 'on the wall'

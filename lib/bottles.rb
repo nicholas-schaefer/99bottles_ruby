@@ -4,10 +4,17 @@ require 'bundler/setup'
 
 # Class `Bottles` generates verses of the 99 Bottles of Beer on the wall song
 class Bottles
-  attr_accessor :verse_int, :verse_array, :quantity, :containers_of_drink, :containers_location, :action1, :action2
+  attr_accessor :verse_int, :verse_array, :quantity, :containers_of_drink, :containers_location, :action1, :action2, :containers_of_drink2
 
   def initialize
     self.verse_array = []
+    setup()
+  end
+
+  def setup
+    self.containers_of_drink2 = Hash.new('bottles of beer')
+    containers_of_drink2.merge!(1=>'bottles of beer')
+    containers_of_drink2.merge!(6=>'six-pack of beer')
   end
 
   def verse(int)
@@ -48,9 +55,11 @@ class Bottles
 
   def set_lyrics
     case verse_int
-    when 2..99 then set_verses_default
-    when 1 then set_verse1
     when 0 then set_verse0
+    when 1 then set_verse1
+    when 2..5 then set_verses_default
+    when 6 then set_verse6
+    when 7..99 then set_verses_default
     else raise ArgumentError
     end
   end
@@ -68,6 +77,14 @@ class Bottles
     self.containers_of_drink = 'bottle of beer'
     self.containers_location = 'on the wall'
     self.action1 = 'take it down'
+    self.action2 = 'and pass it around'
+  end
+
+  def set_verse6
+    self.quantity = "1"
+    self.containers_of_drink = 'six-pack of beer'
+    self.containers_location = 'on the wall'
+    self.action1 = 'take one down'
     self.action2 = 'and pass it around'
   end
 
